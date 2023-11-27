@@ -5,21 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/b75e553fb4.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <h1 class="title">Tic Tac Toe</h1>
-    <div class="player-details">
-      <div class="player1">
-        <label for="pl1_name">Player1 Name: </label>
-        <input type="text" id="pl1_name" />
+    <div class="gameBoard hide"></div>
+    <div class="playermode">
+      <div class="human">
+        <i class="fa-solid fa-user human-img"></i>
+        <p>VS Human</p>
       </div>
-      <div class="player2">
-        <label for="pl2_name">Player2 Name: </label>
-        <input type="text" id="pl2_name" />
+      <div class="robot">
+        <i class="fa-brands fa-android robot-img"></i>
+        <p>VS Computer</p>
       </div>
     </div>
-    <div class="gameBoard hide"></div>
-    <button type="button" class="start-btn">START GAME</button>
+    <div class="selection-ctn hide">
+      <div class="player1-details">
+        <label for="ply1Name">Player1 name:</label>
+        <input type="text" id="ply1Name" class="ply1Name" />
+      </div>
+      <div class="player2-details">
+        <label for="ply2Name">Player2 name:</label>
+        <input type="text" id="ply2Name" class="ply2Name" />
+      </div>
+      <h2>Choose Your Mark</h2>
+      <div class="selection-option">
+        <button type="button" class="cross-selection">X</button>
+        <button type="button" class="circle-selection">O</button>
+      </div>
+    </div>
+    <!-- <div class="scoreBoard">
+      <button type="button"></button>
+    </div> -->
+    <!-- <button type="button" class="start-btn">START GAME</button> -->
   </body>
 </html>

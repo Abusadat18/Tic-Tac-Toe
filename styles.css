@@ -6,50 +6,122 @@
   box-sizing: border-box;
 }
 
-.hide {
-  display: none;
+button,
+input,
+select {
+  font-size: inherit;
 }
+
+/* VARIBLES */
+:root {
+  --PURPLE: #22092c;
+  --ORANGE: #f05941;
+}
+
+/* ********************* */
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #22092c;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--PURPLE);
   height: 100vh;
-  gap: 20px;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  font-size: 20px;
 }
 
 .title {
   font-size: 50px;
-  color: #be3144;
+  color: var(--PURPLE);
+  background-color: var(--ORANGE);
+  text-align: center;
+  box-shadow: 0 1px 4px var(--ORANGE);
 }
 
 .gameBoard {
+  justify-self: center;
+  align-self: center;
   width: 400px;
   display: flex;
   flex-wrap: wrap;
   font-size: 100px;
-  color: #be3144;
+  color: #f05941;
 }
 
 .box {
   width: 133px;
   height: 134px;
-  border: 2px solid #be3144;
+  border: 2px solid #f05941;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.playermode {
+  display: flex;
+  font-size: 27px;
+  color: #f05941;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.human,
+.robot {
+  width: 200px;
+  height: 250px;
+  border: 4px solid #f05941;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.human-img,
+.robot-img {
+  font-size: 60px;
+}
+
 .start-btn {
-  font-size: 25px;
-  background-color: #be3144;
+  background-color: #f05941;
   color: #22092c;
   padding: 10px;
-
   border: 2px solid #22092c;
+  border-radius: 5px;
+}
+
+/* SELECTION CONTAINER */
+.selection-ctn {
+  color: #f05941;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.selection-option {
+  display: flex;
+  gap: 60px;
+}
+
+.cross-selection,
+.circle-selection {
+  background-color: inherit;
+  color: inherit;
+  width: 200px;
+  height: 250px;
+  border: 4px solid #f05941;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+}
+
+.selection-ctn input {
+  width: 200px;
+  padding: 3px 5px;
   border-radius: 5px;
 }
 
