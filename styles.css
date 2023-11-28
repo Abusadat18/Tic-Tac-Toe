@@ -76,6 +76,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  border-radius: 15px;
 }
 
 .human-img,
@@ -93,7 +94,7 @@ body {
 
 /* SELECTION CONTAINER */
 .selection-ctn {
-  color: #f05941;
+  color: var(--ORANGE);
   justify-self: center;
   align-self: center;
   display: flex;
@@ -123,6 +124,44 @@ body {
   width: 200px;
   padding: 3px 5px;
   border-radius: 5px;
+}
+
+.scoreBoard {
+  width: 400px;
+  height: 230px;
+  justify-self: center;
+  align-self: center;
+  border: 4px solid var(--ORANGE);
+  color: var(--ORANGE);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.scoreBoard h1 {
+  background-color: var(--ORANGE);
+  color: var(--PURPLE);
+  align-self: stretch;
+  text-align: center;
+}
+
+.disply-scores-ctn {
+  display: flex;
+  gap: 20px;
+}
+
+.navigation-btn-ctn {
+  display: flex;
+  gap: 20px;
+}
+
+.navigation-btn-ctn button {
+  font-size: 26px;
+  background-color: #f05941;
+  color: #22092c;
+  padding: 5px;
+  width: 125px;
 }
 
 .hide {
