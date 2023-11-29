@@ -1,5 +1,4 @@
 const boxesCtn = document.querySelector(".gameBoard");
-/* const startBtn = document.querySelector(".start-btn"); */
 const playerModeCtn = document.querySelector(".playermode");
 const human_mode = document.querySelector(".human");
 const robot_mode = document.querySelector(".robot");
@@ -33,25 +32,31 @@ function createPlayer(name,selection) {
     return {name,wins,choice}
 }
 
-
-/* startBtn.addEventListener("click", startGame); */
-
 function setBoard() {
     boxesCtn.classList.remove("hide");
-    boxesCtn.innerHTML = `<div class="box" data-key="0"></div>
-    <div class="box" data-key="1"></div>
-    <div class="box" data-key="2"></div>
-    <div class="box" data-key="3"></div>
-    <div class="box" data-key="4"></div>
-    <div class="box" data-key="5"></div>
-    <div class="box" data-key="6"></div>
-    <div class="box" data-key="7"></div>
-    <div class="box" data-key="8"></div>`;
+    boxesCtn.innerHTML = `<div class="player-info">
+        <div class="player1score">
+          <p>${GameBoard.player1.choice}:${GameBoard.player1.name}</p>
+        </div>
+        <div class="player2score">
+          <p>${GameBoard.player2.choice}:${GameBoard.player2.name}</p>
+        </div>
+      </div>
+      <div class="box" data-key="0"></div>
+      <div class="box" data-key="1"></div>
+      <div class="box" data-key="2"></div>
+      <div class="box" data-key="3"></div>
+      <div class="box" data-key="4"></div>
+      <div class="box" data-key="5"></div>
+      <div class="box" data-key="6"></div>
+      <div class="box" data-key="7"></div>
+      <div class="box" data-key="8"></div>`;
     GameBoard.boxes = document.querySelectorAll(".box");
 }
 /****************** VS HUMAN MODE ALL RELATED CODE******************/
 function setVsHuman() {
     setBoard();
+    addHoverOnBoxes(GameBoard.player1.choice);
     GameBoard.boxes.forEach((box) => {
         box.addEventListener("click", addMark);
     })
@@ -67,6 +72,8 @@ function addMark(e) {
             removeHumanMark();
             announceResult(checkWin());
         };
+        removeAddHover(markIndex);
+        addHoverOnBoxes(GameBoard.player2.choice);
         GameBoard.playerTurn = 0;
     }
     else {
@@ -76,14 +83,14 @@ function addMark(e) {
             removeHumanMark();
             announceResult(checkWin());
         };
+        removeAddHover(markIndex);
+        addHoverOnBoxes(GameBoard.player1.choice);
         GameBoard.playerTurn = 1;
     }
-    console.log(GameBoard.arr);
     GameBoard.boxes[markIndex].removeEventListener("click", addMark);
 }
 
 function checkWin() {
-    console.log(GameBoard.chanceCount);
     if ((GameBoard.arr[0]===GameBoard.arr[1])&&(GameBoard.arr[1]===GameBoard.arr[2]) || (GameBoard.arr[0]===GameBoard.arr[3])&&(GameBoard.arr[3]===GameBoard.arr[6]) || (GameBoard.arr[6]===GameBoard.arr[7])&&(GameBoard.arr[7]===GameBoard.arr[8]) || (GameBoard.arr[2]===GameBoard.arr[5])&&(GameBoard.arr[5]===GameBoard.arr[8]) || (GameBoard.arr[0]===GameBoard.arr[4])&&(GameBoard.arr[4]===GameBoard.arr[8]) || (GameBoard.arr[2]===GameBoard.arr[4])&&(GameBoard.arr[4]===GameBoard.arr[6]) || (GameBoard.arr[1]===GameBoard.arr[4])&&(GameBoard.arr[4]===GameBoard.arr[7]) || (GameBoard.arr[3]===GameBoard.arr[4])&&(GameBoard.arr[4]===GameBoard.arr[5])) {
         return 1;
     }
@@ -102,7 +109,6 @@ function announceResult(score) {
 
     else if (score == 2) {
         setScoreBoard("draw");
-        console.log("Draw");
     }
 }
 
@@ -133,6 +139,7 @@ function removeAutomaticMark() {
 /****************** VS ROBOT MODE ALL RELATED CODE******************/
 function setVsRobot() {
     setBoard();
+    addHoverOnBoxes(GameBoard.player1.choice)
     GameBoard.boxes.forEach((box) => {
         box.addEventListener("click", automaticMark);
     })
@@ -148,6 +155,8 @@ function automaticMark(e) {
         removeAutomaticMark();
         announceResult(checkWin());
     } else {
+        removeAddHover(markIndex);
+        addHoverOnBoxes(GameBoard.player1.choice);
         updateRobotChoices();
         GameBoard.playerTurn = 0;
         playRobot();
@@ -165,6 +174,7 @@ function playRobot() {
         removeAutomaticMark();
         announceResult(checkWin());
     } else {
+        removeAddHover(robotFinalChoice);
         updateRobotChoices();
         GameBoard.playerTurn = 1;
     }
@@ -229,8 +239,6 @@ function setVsHumanPlayers(e) {
     } else {
         GameBoard.player2 = createPlayer(player2TextInput.value, "X");
     }
-    console.log(GameBoard.player1);
-    console.log(GameBoard.player2);
     selectionCtn.classList.add("hide");
     setVsHuman();
 }
@@ -242,8 +250,6 @@ function setVsRobotPlayers(e) {
     } else {
         GameBoard.player2 = createPlayer("Robot", "X");
     }
-    console.log(GameBoard.player1);
-    console.log(GameBoard.player2);
     selectionCtn.classList.add("hide");
     setVsRobot();
 }
@@ -285,22 +291,50 @@ homeBtn.addEventListener("click", backToHome);
 function backToHome() {
     scoreboardCtn.classList.add("hide");
     reset();
+    resetSelectionsEventListeners();
     playerModeCtn.classList.remove("hide");
 }
 
+function resetSelectionsEventListeners() {
+    crossSelectionBtn.removeEventListener("click", setVsHumanPlayers);
+    circleSelectionBtn.removeEventListener("click", setVsHumanPlayers);
+    crossSelectionBtn.removeEventListener("click", setVsRobotPlayers);
+    circleSelectionBtn.removeEventListener("click", setVsRobotPlayers);
+}
 
-
-
-
-
-/* function addHover(e) {
-    console.log(e);
-    if (GameBoard.playerTurn) {
-        e.currentTarget.textContent = player1.choice;
-        GameBoard.playerTurn = 0;
+function addHoverOnBoxes(playerMark) {
+    const updatedGameBoardArr = GameBoard.arr.filter((item) => {
+        if (item == "X" || item == "O") {
+            return false;
+        } else {
+            return true;
+        }
+    })
+    console.log(updatedGameBoardArr);
+    if (playerMark === "X") {
+        updatedGameBoardArr.forEach((box) => {
+            console.log(GameBoard.boxes[box]);
+            if (GameBoard.boxes[box].classList.contains("circle")) {
+                GameBoard.boxes[box].classList.remove("circle");
+            }
+            GameBoard.boxes[box].classList.add("cross");
+            
+        })
+    } else {
+        updatedGameBoardArr.forEach((box) => {
+            console.log(GameBoard.boxes[box]);
+            if (GameBoard.boxes[box].classList.contains("cross")) {
+                GameBoard.boxes[box].classList.remove("cross");
+            }
+            GameBoard.boxes[box].classList.add("circle");
+        })
     }
-    else {
-        e.target.textContent = player2.choice;
-        GameBoard.playerTurn = 1;
+}
+
+function removeAddHover(boxIndex) {
+    if (GameBoard.boxes[boxIndex].classList.contains("cross")) {
+        GameBoard.boxes[boxIndex].classList.remove("cross");
+    } else {
+        GameBoard.boxes[boxIndex].classList.remove("circle");
     }
-} */
+}

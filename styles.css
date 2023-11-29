@@ -12,6 +12,14 @@ select {
   font-size: inherit;
 }
 
+input {
+  cursor: text;
+}
+
+button {
+  cursor: pointer;
+}
+
 /* VARIBLES */
 :root {
   --PURPLE: #22092c;
@@ -25,7 +33,7 @@ body {
   background-color: var(--PURPLE);
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: 100px 1fr;
   font-size: 20px;
 }
 
@@ -33,8 +41,10 @@ body {
   font-size: 50px;
   color: var(--PURPLE);
   background-color: var(--ORANGE);
-  text-align: center;
   box-shadow: 0 1px 4px var(--ORANGE);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gameBoard {
@@ -45,6 +55,7 @@ body {
   flex-wrap: wrap;
   font-size: 100px;
   color: #f05941;
+  cursor: pointer;
 }
 
 .box {
@@ -54,6 +65,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.player-info {
+  font-size: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  cursor: default;
 }
 
 .playermode {
@@ -77,19 +97,20 @@ body {
   align-items: center;
   gap: 20px;
   border-radius: 15px;
+  cursor: pointer;
+}
+
+.human:hover,
+.robot:hover,
+.human:focus,
+.robot:focus {
+  color: var(--PURPLE);
+  background-color: var(--ORANGE);
 }
 
 .human-img,
 .robot-img {
   font-size: 60px;
-}
-
-.start-btn {
-  background-color: #f05941;
-  color: #22092c;
-  padding: 10px;
-  border: 2px solid #22092c;
-  border-radius: 5px;
 }
 
 /* SELECTION CONTAINER */
@@ -118,12 +139,32 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 60px;
+  border-radius: 15px;
+}
+
+.cross-selection:hover,
+.cross-selection:focus,
+.circle-selection:hover,
+.circle-selection:focus {
+  color: var(--PURPLE);
+  background-color: var(--ORANGE);
 }
 
 .selection-ctn input {
+  appearance: none;
   width: 200px;
   padding: 3px 5px;
   border-radius: 5px;
+  border: 2px solid var(--ORANGE);
+  background-color: var(--PURPLE);
+  color: var(--ORANGE);
+  outline: none;
+}
+
+.selection-ctn input:focus {
+  background-color: white;
+  color: var(--PURPLE);
+  border: 2px solid var(--ORANGE);
 }
 
 .scoreBoard {
@@ -162,6 +203,24 @@ body {
   color: #22092c;
   padding: 5px;
   width: 125px;
+  border: 2px solid var(--ORANGE);
+  border-radius: 5px;
+}
+
+.navigation-btn-ctn button:hover,
+.navigation-btn-ctn button:focus {
+  background-color: var(--PURPLE);
+  color: var(--ORANGE);
+}
+
+.cross:hover::before {
+  content: "X";
+  color: #f0584158;
+}
+
+.circle:hover::before {
+  content: "O";
+  color: #f0584158;
 }
 
 .hide {
